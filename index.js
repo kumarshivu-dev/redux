@@ -1,3 +1,5 @@
+import { createStore } from "redux";
+
 /* Action-Type */
 const INCREMENT = "post/increment";
 const DECREMENT = "post/decrement";
@@ -5,14 +7,14 @@ const INCREMENT_BY = "post/incrementBy";
 const DECREMENT_BY = "post/decrementBy";
 
 /* Initial State */
-let state = {
+let initialState = {
   name: "shivam",
   age: 22,
   post: 0,
 };
 
 /* Reducer */
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case INCREMENT:
       return {
@@ -39,14 +41,16 @@ const reducer = (state, action) => {
   }
 };
 
-state = reducer(state, { type: INCREMENT });
-console.log("state: ", state);
+/* redux-store */
+const store = createStore(reducer);
 
-state = reducer(state, { type: DECREMENT });
-console.log("state: ", state);
+console.log("store: ", store);
 
-state = reducer(state, { type: INCREMENT_BY, payload: 5 });
-console.log("state: ", state);
+store.subscribe(() => {
+  console.log("store: ", store.getState());
+});
 
-state = reducer(state, { type: DECREMENT_BY, payload: 10 });
-console.log("state: ", state);
+store.dispatch({ type: INCREMENT });
+store.dispatch({ type: DECREMENT });
+store.dispatch({ type: INCREMENT_BY, payload: 10 });
+store.dispatch({ type: DECREMENT_BY, payload: 5 });
