@@ -8,17 +8,11 @@ let newState = state;
 
 console.log(state === newState);
 
-const increment = () => {
-  /* mutation */
-  //   state.name = "shiva";
-  //   newState.post = newState.post + 1;
-
-  /* non-mutation */
-  state = { ...state, name: "shiva" };
-  newState = { ...newState, post: newState.post + 1 };
+const increment = (state) => {
+  return { ...state, post: state.post + 1 };
 };
 
-increment();
+state = increment(state);
 
 console.log(state === newState);
 
